@@ -18,14 +18,15 @@ import { api } from "@/service/api";
 import Message from "@/components/message";
 
 import styles from "./styles.module.css"
+import { useRouter } from 'next/router'
 
 
 export default function Formulario() {
 
   //  Estado para mostar a message de success ou error para cadastro
   const [cadastro, setCadastro] = useState(false);
-  
-  const [termos, setTermos] = useState(true);
+
+  const [message, setMessage] = useState("");
 
   const [dados, setDados] = useState({
     descricao: "",
@@ -33,15 +34,34 @@ export default function Formulario() {
     sala: "",
     inicio: "",
     fim: "",
-    termos: termos,
+    termos: false,
   });
+  const router = useRouter()
 
   async function inserirDados(e) {
     try {
-     // e.preventDefault()
+       e.preventDefault()
+
+      if (dados.termos == true) {
+        setMessage("Concordo com os termos 😃")
+      } else {
+        setMessage("Concorde com os termos 😡")
+        return
+      }
+
+
+      if (dados.inicio < dados.fim ) {
+        setMessage("OK")
+      } else {
+        setMessage("data final menor que a data inicial.")
+        return
+
+      }
+  
+      
       const res = await api.post('/reservas', dados)
       setCadastro(true)
-      console.log(re.data);
+      
       // setTermos(res.data.)
       setDados({
         descricao: "",
@@ -49,8 +69,11 @@ export default function Formulario() {
         sala: "",
         inicio: "",
         fim: "",
-        termos: termos,
+        termos: false,
       })
+      
+      window.location.reload()
+
     } catch (error) {
       console.log(error);
       console.log(`Deu ruim`);
@@ -86,36 +109,20 @@ export default function Formulario() {
 
       )}
 
-      {termos == true ? (
-        <>
-          {/* <Message
-            Texto="Cadastro realizado com sucesso"
-            ativo={true}
-            success
-          /> */}
 
-        </>
 
-      ) : (
+      <Message
+        Texto={`${message}`}
+        ativo={true}
+        success
+      />
 
-        <>
-
-          <Message
-            Texto="Concordo com os termos?"
-            ativo={true}
-            error
-          />
-
-        </>
-
-      )}
-   
       <p>Descrição:{dados.descricao}</p>
       <p>Solicitante:{dados.solicitante}</p>
       <p>Sala:{dados.sala}</p>
       <p>inicio:{dados.inicio}</p>
       <p>fim:{dados.fim}</p>
-      <p>Termos:{dados.termos}</p>
+      <p>Termos: {dados.termos ? "True" : "False"}</p>
 
       {dados.inicio > dados.fim ? (
         <>
@@ -173,7 +180,7 @@ export default function Formulario() {
 
 
           <div className={styles.sub_container} >
-            <input type='checkbox' id="termos" value={dados.termos} onClick={() => setTermos(true)} onChange={e => setDados({ ...dados, termos: e.target.value })} required></input>
+            <input type='checkbox' id="termos" value={dados.termos} onChange={e => setDados({ ...dados, termos: e.target.checked })}></input>
             <Label htmlFor={"termos"} >concordo com os termos?</Label>
           </div>
 
