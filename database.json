@@ -1,0 +1,31 @@
+{
+  "reservas": [
+    {
+      "descricao": "Aula de Frameworks",
+      "solicitante": "Theo",
+      "sala": "Bloco A - Lab. de Informática 3",
+      "inicio": "2023-11-06T15:12",
+      "fim": "2023-11-09T15:12",
+      "termos": "",
+      "id": 1
+    },
+    {
+      "descricao": "Aula de Frameworks",
+      "solicitante": "Theo",
+      "sala": "Bloco A - Lab. de Informática 3",
+      "inicio": "2023-11-02T16:26",
+      "fim": "2023-11-03T16:26",
+      "termos": "false",
+      "id": 2
+    },
+    {
+      "descricao": "Aula de Frameworks",
+      "solicitante": "Theo",
+      "sala": "Bloco A - Lab. de Informática 3",
+      "inicio": "2023-11-03T16:27",
+      "fim": "2023-11-04T16:27",
+      "termos": "false",
+      "id": 3
+    }
+  ]
+}
