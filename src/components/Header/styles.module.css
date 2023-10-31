@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    flex-direction: row;
+
+    background-color: var(--cor-primaria);
+
+    color: var(--cor-secundaria);
+
+}
+
+
+.titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--cor-primaria);
+
+    color: var(--cor-secundaria);
+
+    font-family: var(--font-secundaria);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+
+    width: 20rem;
+    height: 5rem;
+
+}

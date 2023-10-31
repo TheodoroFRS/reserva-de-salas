@@ -1,0 +1,25 @@
+.filtroShowOn {
+    animation: 500ms normal forwards;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  
+  }
+  
+  .filtroShowOff {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .button {
+    background-color:transparent;
+    border: none;
+    border-radius: 4px;
+    color: #333;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  
