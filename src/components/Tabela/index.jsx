@@ -33,6 +33,7 @@ export default function Tabela() {
 
   return (
     <>
+    <h2>📅Reservas realizadas:{reservas?.length}</h2>
       <Table>
         <Thead>
           <Tr>

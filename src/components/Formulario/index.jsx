@@ -27,6 +27,9 @@ export default function Formulario() {
   const [cadastro, setCadastro] = useState(false);
 
   const [message, setMessage] = useState("");
+  const [ativo, setAtivo] = useState(false);
+  const [tipo, setTipo] = useState("");
+
 
   const [dados, setDados] = useState({
     descricao: "",
@@ -40,28 +43,35 @@ export default function Formulario() {
 
   async function inserirDados(e) {
     try {
-       e.preventDefault()
+      e.preventDefault()
 
       if (dados.termos == true) {
         setMessage("Concordo com os termos 😃")
+        setAtivo(true)
+        setTipo("info")
       } else {
         setMessage("Concorde com os termos 😡")
+        setAtivo(true)
+        setTipo("warning")
         return
       }
 
 
-      if (dados.inicio < dados.fim ) {
-        setMessage("OK")
-      } else {
-        setMessage("data final menor que a data inicial.")
-        return
+      // if (dados.inicio < dados.fim ) {
+      //   setMessage("OK")
+      //   setAtivo(true)
+      //   setTipo("success")
+      // } else {
+      //   setMessage("data final menor que a data inicial.")
+      //   setAtivo(true)
+      //   setTipo("warning")
+      //   return
+      // }
 
-      }
-  
-      
+
       const res = await api.post('/reservas', dados)
       setCadastro(true)
-      
+
       // setTermos(res.data.)
       setDados({
         descricao: "",
@@ -71,10 +81,18 @@ export default function Formulario() {
         fim: "",
         termos: false,
       })
-      
+
+      setMessage("Cadastro realizado com sucesso")
+      setAtivo(true)
+      setTipo("success")
+
       window.location.reload()
 
     } catch (error) {
+      setMessage("Erro")
+      setAtivo(true)
+      setTipo("error")
+
       console.log(error);
       console.log(`Deu ruim`);
       alert("Deu ruim")
@@ -85,12 +103,14 @@ export default function Formulario() {
 
   return (
     <>
-      {cadastro == true ? (
+      <h2 className={styles.titulo}>Reservar sala</h2>
+
+      {/* {cadastro == true ? (
         <>
           <Message
-            Texto="Cadastro realizado com sucesso"
-            ativo={true}
-            success
+        Texto={`${message}`}
+        ativo={ativo}
+        type={`${tipo}`}
           />
 
         </>
@@ -100,22 +120,47 @@ export default function Formulario() {
         <>
 
           <Message
-            Texto="Cadastro não realizado"
-            //ativo={true}
-            error
+       Texto={`${message}`}
+      // ativo={ativo}
+       type={`${tipo}`}
           />
 
         </>
 
-      )}
+      )} */}
 
 
 
       <Message
         Texto={`${message}`}
-        ativo={true}
-        success
+        ativo={ativo}
+        type={`${tipo}`}
       />
+
+
+      {dados.inicio > dados.fim ? (
+        <>
+          <Message
+            Texto="data final menor que a data inicial."
+            ativo={true}
+            type={`warning`}
+
+          />
+
+        </>
+
+      ) : (
+
+        <>
+          {/* <Message
+               Texto="OK"
+               ativo={true}
+               type={`success`}   
+              /> */}
+
+        </>
+
+      )}
 
       <p>Descrição:{dados.descricao}</p>
       <p>Solicitante:{dados.solicitante}</p>
@@ -123,30 +168,6 @@ export default function Formulario() {
       <p>inicio:{dados.inicio}</p>
       <p>fim:{dados.fim}</p>
       <p>Termos: {dados.termos ? "True" : "False"}</p>
-
-      {dados.inicio > dados.fim ? (
-        <>
-          <Message
-            Texto="data final menor que a data inicial."
-            ativo={true}
-            error
-          />
-
-        </>
-
-      ) : (
-
-        <>
-
-          {/* <Message
-               Texto="Cadastro realizado com sucesso"
-               ativo={true}
-               success
-          /> */}
-
-        </>
-
-      )}
 
       <form className={styles.formulario} onSubmit={e => inserirDados(e)}>
         <div className={styles.container} >
@@ -164,7 +185,27 @@ export default function Formulario() {
 
           <div className={styles.sub_container} >
             <Label htmlFor={"sala"} >Sala:</Label>
-            <input type='text' id="sala" value={dados.sala} onChange={e => setDados({ ...dados, sala: e.target.value })} required></input>
+            <select
+            id="sala"
+            name="sala"
+            value={dados.sala}
+            onChange={e => setDados({ ...dados, sala: e.target.value })}
+          >
+            <option value={""} selected disabled >
+                ... Selecione uma sala
+            </option>
+            <option value="Bloco A - Lab. de Informática 1">
+              Bloco A - Lab. de Informática 1
+            </option>
+            <option value="Bloco A - Lab. de Informática 2">
+              Bloco A - Lab. de Informática 2
+            </option>
+            <option value="Bloco A - Lab. de Informática 3">
+              Bloco A - Lab. de Informática 3
+            </option>
+          </select>
+
+            {/* <input type='text' id="sala" value={dados.sala} onChange={e => setDados({ ...dados, sala: e.target.value })} required></input> */}
           </div>
 
 
@@ -181,7 +222,7 @@ export default function Formulario() {
 
           <div className={styles.sub_container} >
             <input type='checkbox' id="termos" value={dados.termos} onChange={e => setDados({ ...dados, termos: e.target.checked })}></input>
-            <Label htmlFor={"termos"} >concordo com os termos?</Label>
+            <Label htmlFor={"termos"}>concordo com os termos?</Label>
           </div>
 
           <Container >
