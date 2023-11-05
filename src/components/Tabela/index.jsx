@@ -12,12 +12,13 @@ import Thead from "@/components/Thead";
 import Tr from "@/components/Tr";
 import { useEffect, useState } from "react";
 import { api } from "@/service/api";
+import {formatarDataTime } from "@/utils/mascaras";
 
 export default function Tabela() {
 
   //  Estado para armazenar os produtos
   const [reservas, setReservas] = useState([]);
-
+ 
   async function getReservas() {
     try {
       const res = await api.get(`/reservas`)
@@ -33,29 +34,31 @@ export default function Tabela() {
 
   return (
     <>
-    <h2>📅Reservas realizadas:{reservas?.length}</h2>
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>Descrição</Th>
-            <Th>Solicitante</Th>
-            <Th>Sala</Th>
-            <Th>Início</Th>
-            <Th>Fim</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {reservas?.map((reserva) => (
-            <Tr key={reserva.id}>
-              <Td>{reserva.descricao}</Td>
-              <Td>{reserva.solicitante}</Td>
-              <Td>{reserva.sala}</Td>
-              <Td>{reserva.inicio} </Td>
-              <Td>{reserva.fim}</Td>
+      <div className={styles.container}>
+        <h2 className={styles.titulo}>📅Reservas realizadas:{reservas?.length}</h2>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>Descrição</Th>
+              <Th>Solicitante</Th>
+              <Th>Sala</Th>
+              <Th>Início</Th>
+              <Th>Fim</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {reservas?.map((reserva) => (
+              <Tr key={reserva.id}>
+                <Td>{reserva.descricao}</Td>
+                <Td>{reserva.solicitante}</Td>
+                <Td>{reserva.sala}</Td>
+                <Td>{formatarDataTime(reserva.inicio)} </Td>
+                <Td>{formatarDataTime(reserva.fim)}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </div>
     </>
   )
 }

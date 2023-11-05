@@ -57,16 +57,16 @@ export default function Formulario() {
       }
 
 
-      // if (dados.inicio < dados.fim ) {
-      //   setMessage("OK")
-      //   setAtivo(true)
-      //   setTipo("success")
-      // } else {
-      //   setMessage("data final menor que a data inicial.")
-      //   setAtivo(true)
-      //   setTipo("warning")
-      //   return
-      // }
+      if (dados.inicio < dados.fim ) {
+        setMessage("OK")
+        setAtivo(true)
+        setTipo("success")
+      } else {
+        setMessage("data final menor que a data inicial.")
+        setAtivo(true)
+        setTipo("warning")
+        return
+      }
 
 
       const res = await api.post('/reservas', dados)
@@ -138,7 +138,7 @@ export default function Formulario() {
       />
 
 
-      {dados.inicio > dados.fim ? (
+      {/* {dados.inicio > dados.fim ? (
         <>
           <Message
             Texto="data final menor que a data inicial."
@@ -152,47 +152,47 @@ export default function Formulario() {
       ) : (
 
         <>
-          {/* <Message
-               Texto="OK"
-               ativo={true}
-               type={`success`}   
-              /> */}
+          <Message
+      //         Texto="OK"
+       //        ativo={true}
+            //   type={`success`}   
+              />
 
         </>
 
-      )}
+      )} */}
 
-      <p>Descrição:{dados.descricao}</p>
+      {/* <p>Descrição:{dados.descricao}</p>
       <p>Solicitante:{dados.solicitante}</p>
       <p>Sala:{dados.sala}</p>
       <p>inicio:{dados.inicio}</p>
       <p>fim:{dados.fim}</p>
-      <p>Termos: {dados.termos ? "True" : "False"}</p>
+      <p>Termos: {dados.termos ? "True" : "False"}</p> */}
 
       <form className={styles.formulario} onSubmit={e => inserirDados(e)}>
         <div className={styles.container} >
 
           <div className={styles.sub_container} >
             <Label htmlFor="descricao">Descrição:</Label>
-            <textarea id="descricao" rows="4" cols="50" placeholder="Digite a descricao aqui" required
+            <textarea className={styles.textarea} id="descricao" rows="4" cols="50" placeholder="Digite a descrição aqui" required
               value={dados.descricao} onChange={e => setDados({ ...dados, descricao: e.target.value })}></textarea>
           </div>
 
           <div className={styles.sub_container} >
             <Label htmlFor={"solicitante"} >Solicitante:</Label>
-            <input type='text' id="solicitante" value={dados.solicitante} onChange={e => setDados({ ...dados, solicitante: e.target.value })}></input>
+            <input className={styles.input} type='text' id="solicitante" value={dados.solicitante} onChange={e => setDados({ ...dados, solicitante: e.target.value })}></input>
           </div>
 
           <div className={styles.sub_container} >
             <Label htmlFor={"sala"} >Sala:</Label>
-            <select
+            <select className={styles.select}
             id="sala"
             name="sala"
             value={dados.sala}
             onChange={e => setDados({ ...dados, sala: e.target.value })}
           >
-            <option value={""} selected disabled >
-                ... Selecione uma sala
+            <option  value={""} selected disabled >
+              Selecione uma sala
             </option>
             <option value="Bloco A - Lab. de Informática 1">
               Bloco A - Lab. de Informática 1
@@ -210,24 +210,24 @@ export default function Formulario() {
 
 
           <div className={styles.sub_container} >
-            <Label htmlFor={"inicio"} >Inicio:</Label>
-            <input type='datetime-local' id="inicio" value={dados.inicio} onChange={e => setDados({ ...dados, inicio: e.target.value })}></input>
+            <Label htmlFor={"inicio"} >Inicio</Label>
+            <input className={styles.data} type='datetime-local' id="inicio" value={dados.inicio} onChange={e => setDados({ ...dados, inicio: e.target.value })}></input>
           </div>
 
           <div className={styles.sub_container} >
-            <Label htmlFor={"fim"}>Fim:</Label>
-            <input type='datetime-local' id="fim" value={dados.fim} onChange={e => setDados({ ...dados, fim: e.target.value })} required></input>
+            <Label htmlFor={"fim"}>Fim</Label>
+            <input className={styles.data} type='datetime-local' id="fim" value={dados.fim} onChange={e => setDados({ ...dados, fim: e.target.value })} required></input>
           </div>
 
 
-          <div className={styles.sub_container} >
+          <div className={styles.line_container} >
             <input type='checkbox' id="termos" value={dados.termos} onChange={e => setDados({ ...dados, termos: e.target.checked })}></input>
             <Label htmlFor={"termos"}>concordo com os termos?</Label>
           </div>
 
-          <Container >
+          <div className={styles.container_botao}>
             <Botao type="submit">Reservar sala</Botao>
-          </Container>
+          </div>
 
         </div>
       </form >

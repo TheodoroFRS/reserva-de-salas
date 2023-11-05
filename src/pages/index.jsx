@@ -5,6 +5,7 @@ import Header from '@/components/Header'
 import Container from '@/components/Container'
 import Formulario from '@/components/Formulario'
 import Tabela from '@/components/Tabela'
+import Rodape from '@/components/Rodape'
 
 const inter = Inter({ subsets: ['latin'] })
 //npx json-server --watch database.json --port 3001
@@ -19,24 +20,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className={styles.main} >
 
-        <Header titulo={"Reserva de salas"} />
+        {/* <Header titulo={"Reserva de salas"} /> */}
 
-        <Container>
-
-          <div>
+        <div className={styles.container}>
+          <div className={styles.formulario}>
             <Formulario />
           </div>
 
-          <div>
+          <div className={styles.tabela}>
             <Tabela />
           </div>
-
-        </Container>
-
-
+        </div>
+        {/* <Rodape texto={"Reserva de salas"}/> */}
       </main>
-    </>
+      </>
   )
 }

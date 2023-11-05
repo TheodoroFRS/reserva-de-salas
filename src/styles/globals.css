@@ -3,16 +3,16 @@
 
   
 :root {
-  --cor-primaria: #4354A2;
+  --cor-primaria: #4c60af;
   --cor-secundaria:  #ffffff;
   --cor-terciaria: #274156;
-  --cor-quaternaria: #ffffff;
+  --cor-quaternaria: #C5C5C5;
   --cor-preto: #000000;
 
   --cor-success: #09ff00;
   --cor-error: #ff0000;
 
-  --cor-focus: rgba(255, 255, 0, 0.14);
+  --cor-focus: rgba(199, 199, 199, 0.14);
 
   --font-primaria:'Quicksand', sans-serif;
   --font-secundaria: 'Inter', sans-serif;
@@ -34,7 +34,7 @@
 
 
   /* Cores auxiliares */
-  --focus:            #cac4f7;
+  --focus:            #6c6c6c55;
 
   
 
@@ -124,7 +124,7 @@
   --table-border: .063rem solid var(--darkGray);
 
 
-  --table-zebra: var(--purpleLight);
+  --table-zebra: var(--gray);
 
 }
 
