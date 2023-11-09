@@ -15,6 +15,5 @@
 .tabela{
   width: 100%;
   border-left: 1px solid var(--cor-preto);
-  background-color: aqua;
   padding: 1rem;
 }

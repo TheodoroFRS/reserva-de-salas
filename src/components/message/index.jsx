@@ -39,9 +39,6 @@ export default function Message({ Texto, ativo, type }) { //ativo,
 
 
       )}
-
-
-
     </>
   )
 }
